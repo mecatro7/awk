@@ -1,0 +1,22 @@
+version: "1"
+project:
+  name: mecatro7/awk
+  branch: master
+  revision:
+    name: ${scm.git.commit}
+    date: ${scm.git.commit.date}
+capture:
+  build:
+    cleanCommands:
+    - shell : [make, -f, makefile, clean]
+    buildCommands:
+    - shell : [make, -f, makefile]
+
+analyze:
+  mode: central
+  coverity:
+    cov-analyze: [ "--all", "--webapp-security", "--sigma", "enable", "--analyze-node-modules", "--distrust-all", "--enable-default"]  
+install:
+  coverity:
+    version: default
+serverUrl: https://sipse.polaris.synopsys.com
